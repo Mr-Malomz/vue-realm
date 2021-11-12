@@ -1,24 +1,15 @@
-# vue-realm
+# invent
+This is a mini inventory management system built with vuejs, tailwindcss and typescript.
 
-## Project setup
-```
-npm install
-```
+This project is part of my plan to explore vuejs and it's ecosystem.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Link to mockup: https://www.figma.com/proto/PJDlN7v9qQfXiqsSPEj5r4/In-Vent?node-id=6%3A7&scaling=min-zoom
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## My Goals for this project
+* Learn how to structure scalable vuejs project
+* Explore typescript support for vuejs
+* State management using vueX
+* Authorization and Authentication
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+

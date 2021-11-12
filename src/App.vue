@@ -3,9 +3,10 @@
     <header
       class="h-16 w-full bg-indigo-200 px-6 flex justify-between items-center"
     >
-      <h1 class="text-xl text-indigo-900">React-Realm</h1>
+      <h1 class="text-xl text-indigo-900">Vue-Realm</h1>
       <button
         class="text-lg text-white capitalize px-6 py-2 bg-indigo-900 rounded-md"
+        @click="handleModal(true)"
       >
         create
       </button>
@@ -32,6 +33,7 @@
               </button>
               <button
                 className="text-sm text-white capitalize px-4 py-2 bg-indigo-900 rounded-md"
+                @click="handleEditClick()"
               >
                 edit
               </button>
@@ -40,19 +42,39 @@
         </li>
       </ul>
     </section>
+    <Modal :isModal="isModal" :isEdit="isEdit" :handleModal="handleModal" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import UserIcon from '@/assets/svg/UserIcon.vue';
+import Modal from '@/components/Modal.vue';
 
 export default defineComponent({
   name: 'App',
+
   components: {
-    UserIcon
+    UserIcon,
+    Modal,
   },
-  
+
+  data: () => ({
+    isModal: false,
+    isEdit: false,
+  }),
+
+  methods: {
+    handleModal(state: boolean) {
+      this.isModal = state;
+      this.isEdit = false;
+    },
+
+    handleEditClick() {
+      this.isModal = true;
+      this.isEdit = true;
+    },
+  },
 });
 </script>
 
