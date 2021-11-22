@@ -73,8 +73,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import CloseIcon from '@/assets/svg/CloseIcon.vue';
+import { IUser } from '@/models/user.interface';
+import { app, credentials } from '@/utils/mongo.client';
+import { BSON } from 'realm-web';
 
 export default defineComponent({
   name: 'Modal',
@@ -83,6 +86,8 @@ export default defineComponent({
     isModal: Boolean,
     isEdit: Boolean,
     handleModal: Function,
+    updateUserValue: Function as PropType<(value: any) => void>,
+    editingId: String,
   },
 
   data: () => ({
@@ -99,9 +104,60 @@ export default defineComponent({
       }
     },
 
-    onSubmitForm() {
-      console.log(this.$data)
-    }
+    async onSubmitForm() {
+      const user: Realm.User = await app.logIn(credentials);
+      if (this.isEdit) {
+        const edit: Promise<IUser> = user.functions.editUser(
+          new BSON.ObjectID(this.editingId).toString(),
+          this.name,
+          this.location,
+          this.title
+        );
+        edit.then((resp) => {
+          this.updateUserValue!(resp._id!);
+          this.name = '';
+          this.location = '';
+          this.title = '';
+          this.handleModal!(false);
+        });
+      } else {
+        const create = user.functions.createUser(
+          this.name,
+          this.location,
+          this.title
+        );
+        create.then((resp) => {
+          this.updateUserValue!(resp.insertedId);
+          this.name = '';
+          this.location = '';
+          this.title = '';
+        });
+      }
+    },
+
+    async getAUser() {
+      const user: Realm.User = await app.logIn(credentials);
+      const getUser: Promise<IUser> = user.functions.getSingleUser(
+        new BSON.ObjectID(this.editingId).toString()
+      );
+      getUser.then((resp) => {
+        this.name = resp.name;
+        this.location = resp.location;
+        this.title = resp.title;
+      });
+    },
+  },
+
+  watch: {
+    isEdit(latestValue) {
+      if (latestValue === true) {
+        this.getAUser();
+      } else {
+        this.name = '';
+        this.location = '';
+        this.title = '';
+      }
+    },
   },
 });
 </script>
