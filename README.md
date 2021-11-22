@@ -1,15 +1,23 @@
-# invent
-This is a mini inventory management system built with vuejs, tailwindcss and typescript.
+# vue-realm
 
-This project is part of my plan to explore vuejs and it's ecosystem.
+Going serverless with MongoDB Realm - Vue.js Version.
 
-Link to mockup: https://www.figma.com/proto/PJDlN7v9qQfXiqsSPEj5r4/In-Vent?node-id=6%3A7&scaling=min-zoom
+## Getting Started
 
+## Install
 
-## My Goals for this project
-* Learn how to structure scalable vuejs project
-* Explore typescript support for vuejs
-* State management using vueX
-* Authorization and Authentication
+In the project directory, you can run the script below to install project dependency:
 
+```
+npm install
+```
 
+Then run the project using
+
+```
+npm run serve
+```
+
+Article Link
+
+[Article Link](https://)
